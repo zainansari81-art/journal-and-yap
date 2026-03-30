@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal & Yap — The Space Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FDF6EC;
+            --warm-brown: #8B6914;
+            --dark-brown: #3E2723;
+            --soft-gold: #D4A843;
+            --blush: #E8C4B8;
+            --sage: #A8B5A0;
+            --rust: #C17852;
+            --deep-rust: #A85D3A;
+            --paper: #F5EDE0;
+            --ink: #2C1810;
+            --light-sage: #D4DDD0;
+            --warm-white: #FFFBF5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(200, 170, 120, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(168, 181, 160, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 80%, rgba(232, 196, 184, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 30px;
+            position: relative;
+        }
+
+        .studio-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--dark-brown);
+            color: var(--cream);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .studio-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .event-title {
+            font-family: 'Caveat', cursive;
+            font-size: 58px;
+            font-weight: 700;
+            color: var(--dark-brown);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .event-title span {
+            color: var(--rust);
+        }
+
+        .event-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 16px;
+            color: var(--rust);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .event-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--dark-brown);
+            font-weight: 500;
+        }
+
+        .meta-item svg {
+            width: 16px;
+            height: 16px;
+            color: var(--rust);
+            flex-shrink: 0;
+        }
+
+        .hosted-by {
+            margin-top: 18px;
+            font-size: 13px;
+            color: #7a6a5a;
+        }
+
+        .hosted-by a {
+            color: var(--rust);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .hosted-by a:hover {
+            text-decoration: underline;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 28px 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blush), transparent);
+        }
+
+        .divider-icon {
+            color: var(--soft-gold);
+            font-size: 18px;
+        }
+
+        /* What to Expect */
+        .details-card {
+            background: var(--warm-white);
+            border: 1px solid rgba(193, 120, 82, 0.15);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .details-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--rust), var(--soft-gold), var(--sage));
+        }
+
+        .details-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-brown);
+            margin-bottom: 16px;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .activity-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: var(--paper);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--dark-brown);
+            transition: transform 0.2s;
+        }
+
+        .activity-tag:hover {
+            transform: translateY(-1px);
+        }
+
+        .activity-tag .emoji {
+            font-size: 16px;
+        }
+
+        .bring-note {
+            margin-top: 16px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, rgba(168, 181, 160, 0.15), rgba(212, 168, 67, 0.1));
+            border-radius: 10px;
+            border-left: 3px solid var(--sage);
+            font-size: 13px;
+            color: #5a4e40;
+            line-height: 1.6;
+        }
+
+        .bring-note strong {
+            color: var(--dark-brown);
+        }
+
+        /* Form Section */
+        .form-section {
+            background: var(--warm-white);
+            border: 1px solid rgba(193, 120, 82, 0.12);
+            border-radius: 20px;
+            padding: 28px 24px 32px;
+            box-shadow: 0 4px 24px rgba(62, 39, 35, 0.06);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .form-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--dark-brown);
+            margin-bottom: 6px;
+        }
+
+        .form-header p {
+            font-size: 13px;
+            color: #8a7a6a;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-brown);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group label .required {
+            color: var(--rust);
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid #e0d5c8;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--ink);
+            background: var(--cream);
+            transition: all 0.25s ease;
+            outline: none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #b5a898;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--rust);
+            box-shadow: 0 0 0 3px rgba(193, 120, 82, 0.1);
+            background: var(--warm-white);
+        }
+
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7a6a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+            cursor: pointer;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Radio/Check Options */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border: 1.5px solid #e0d5c8;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--cream);
+        }
+
+        .radio-option:hover {
+            border-color: var(--blush);
+            background: rgba(232, 196, 184, 0.1);
+        }
+
+        .radio-option input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--rust);
+            cursor: pointer;
+        }
+
+        .radio-option span {
+            font-size: 14px;
+            color: var(--dark-brown);
+        }
+
+        .radio-option.selected {
+            border-color: var(--rust);
+            background: rgba(193, 120, 82, 0.06);
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 15px 24px;
+            background: linear-gradient(135deg, var(--rust), var(--deep-rust));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(193, 120, 82, 0.35);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .spots-note {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 12px;
+            color: #9a8a7a;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--paper);
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--dark-brown);
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .social-link:hover {
+            background: var(--blush);
+            transform: translateY(-1px);
+        }
+
+        .social-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: #b5a898;
+        }
+
+        /* Success State */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(62, 39, 35, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .success-overlay.show {
+            display: flex;
+        }
+
+        .success-card {
+            background: var(--warm-white);
+            border-radius: 24px;
+            padding: 40px 32px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-emoji {
+            font-size: 56px;
+            margin-bottom: 16px;
+        }
+
+        .success-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--dark-brown);
+            margin-bottom: 10px;
+        }
+
+        .success-card p {
+            font-size: 14px;
+            color: #7a6a5a;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .success-card .close-btn {
+            padding: 12px 32px;
+            background: var(--sage);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .success-card .close-btn:hover {
+            background: #8fa487;
+        }
+
+        /* Error state */
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: #d45a5a;
+            box-shadow: 0 0 0 3px rgba(212, 90, 90, 0.1);
+        }
+
+        .error-msg {
+            display: none;
+            font-size: 12px;
+            color: #d45a5a;
+            margin-top: 4px;
+        }
+
+        .form-group.error .error-msg {
+            display: block;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .page-wrapper {
+                padding: 12px 12px 32px;
+            }
+            .event-title {
+                font-size: 46px;
+            }
+            .form-section {
+                padding: 22px 18px 28px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
+            .event-meta {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="studio-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            The Space Studio
+        </div>
+
+        <h1 class="event-title">Journal <span>&</span> Yap</h1>
+        <p class="event-subtitle">a cozy evening for your thoughts</p>
+
+        <div class="event-meta">
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Saturday, April 4th
+            </div>
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                5:00 — 7:00 PM
+            </div>
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                The Space Studio
+            </div>
+        </div>
+
+        <p class="hosted-by">Hosted by <a href="https://instagram.com/shetoonss" target="_blank">@shetoonss</a> &times; <a href="https://instagram.com/thespacestudio.pk" target="_blank">@thespacestudio.pk</a></p>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon">&#10045;</span>
+        <span class="divider-line"></span>
+    </div>
+
+    <!-- What to Expect -->
+    <div class="details-card">
+        <h3 class="details-title">What's in store</h3>
+        <div class="activities-grid">
+            <div class="activity-tag"><span class="emoji">&#128221;</span> Journaling Materials</div>
+            <div class="activity-tag"><span class="emoji">&#127881;</span> Pop Ups</div>
+            <div class="activity-tag"><span class="emoji">&#127849;</span> Snacks</div>
+            <div class="activity-tag"><span class="emoji">&#127873;</span> Goody Bags</div>
+            <div class="activity-tag"><span class="emoji">&#127922;</span> Prompt Dip Jar</div>
+            <div class="activity-tag"><span class="emoji">&#128156;</span> Cozy Vibes</div>
+        </div>
+        <div class="bring-note">
+            <strong>What to bring:</strong> Your own journal &amp; fresh vibes &#10024;
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="form-section">
+        <div class="form-header">
+            <h2>Reserve Your Spot</h2>
+            <p>Fill in the details below and we'll save a seat for you!</p>
+        </div>
+
+        <form id="signupForm" novalidate>
+            <div class="form-group">
+                <label>Full Name <span class="required">*</span></label>
+                <input type="text" name="name" placeholder="e.g. Ayesha Khan" required>
+                <div class="error-msg">Please enter your name</div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>WhatsApp Number <span class="required">*</span></label>
+                    <input type="tel" name="phone" placeholder="03XX XXXXXXX" required>
+                    <div class="error-msg">Please enter a valid number</div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="you@email.com">
+                    <div class="error-msg">Please enter a valid email</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Instagram Handle</label>
+                <input type="text" name="instagram" placeholder="@yourusername">
+            </div>
+
+            <div class="form-group">
+                <label>How did you hear about this event? <span class="required">*</span></label>
+                <select name="source" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="facebook">Facebook Ad</option>
+                    <option value="friend">A Friend</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="other">Other</option>
+                </select>
+                <div class="error-msg">Please select an option</div>
+            </div>
+
+            <div class="form-group">
+                <label>Have you attended any of our previous events?</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="returning" value="yes">
+                        <span>Yes, I'm a returning guest!</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="returning" value="no">
+                        <span>No, this is my first time</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Anything you'd like us to know?</label>
+                <textarea name="notes" placeholder="Questions, dietary needs, or just say hi..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Book My Spot</button>
+            <p class="spots-note">Limited spots available — first come, first served</p>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="social-links">
+            <a href="https://instagram.com/thespacestudio.pk" target="_blank" class="social-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                @thespacestudio.pk
+            </a>
+            <a href="https://instagram.com/shetoonss" target="_blank" class="social-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                @shetoonss
+            </a>
+        </div>
+        <p class="footer-text">Made with love at The Space Studio</p>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="success-overlay" id="successOverlay">
+    <div class="success-card">
+        <div class="success-emoji">&#128150;&#10024;</div>
+        <h2>You're In!</h2>
+        <p>We've saved your spot for <strong>Journal & Yap</strong> on April 4th. We'll reach out on WhatsApp with all the details. Bring your journal and good vibes!</p>
+        <button class="close-btn" onclick="closeSuccess()">Got it!</button>
+    </div>
+</div>
+
+<script>
+    // Google Apps Script Web App URL — replace with your deployed URL
+    const GOOGLE_SCRIPT_URL = '';
+
+    const form = document.getElementById('signupForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Radio option styling
+    document.querySelectorAll('.radio-option input').forEach(radio => {
+        radio.addEventListener('change', () => {
+            document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+            radio.closest('.radio-option').classList.add('selected');
+        });
+    });
+
+    // Form validation
+    function validateForm() {
+        let valid = true;
+        const fields = form.querySelectorAll('[required]');
+
+        fields.forEach(field => {
+            const group = field.closest('.form-group');
+            group.classList.remove('error');
+
+            if (!field.value.trim()) {
+                group.classList.add('error');
+                valid = false;
+            }
+
+            if (field.type === 'tel' && field.value.trim()) {
+                const phone = field.value.replace(/[\s\-\(\)]/g, '');
+                if (phone.length < 10) {
+                    group.classList.add('error');
+                    valid = false;
+                }
+            }
+        });
+
+        const email = form.querySelector('[name="email"]');
+        if (email.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+            email.closest('.form-group').classList.add('error');
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    // Clear errors on input
+    form.querySelectorAll('input, select, textarea').forEach(el => {
+        el.addEventListener('input', () => {
+            el.closest('.form-group').classList.remove('error');
+        });
+    });
+
+    // Form submit
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) return;
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner"></span> Booking...';
+
+        const data = new FormData(form);
+        const payload = Object.fromEntries(data.entries());
+        payload.timestamp = new Date().toISOString();
+        payload.event = 'Journal & Yap — April 4, 2026';
+
+        if (GOOGLE_SCRIPT_URL) {
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.log('Submission note:', err);
+            }
+        }
+
+        // Save to localStorage as backup
+        const submissions = JSON.parse(localStorage.getItem('journalYapSignups') || '[]');
+        submissions.push(payload);
+        localStorage.setItem('journalYapSignups', JSON.stringify(submissions));
+
+        submitBtn.innerHTML = 'Book My Spot';
+        submitBtn.disabled = false;
+        form.reset();
+        document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+
+        document.getElementById('successOverlay').classList.add('show');
+    });
+
+    function closeSuccess() {
+        document.getElementById('successOverlay').classList.remove('show');
+    }
+
+    // Close on overlay click
+    document.getElementById('successOverlay').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeSuccess();
+    });
+
+    // Admin: press Ctrl+Shift+D to download all submissions
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+            const submissions = JSON.parse(localStorage.getItem('journalYapSignups') || '[]');
+            if (!submissions.length) { alert('No submissions yet.'); return; }
+            const csv = [
+                ['Timestamp', 'Name', 'Phone', 'Email', 'Instagram', 'Source', 'Returning', 'Notes'],
+                ...submissions.map(s => [s.timestamp, s.name, s.phone, s.email, s.instagram, s.source, s.returning, s.notes])
+            ].map(r => r.map(v => `"${(v||'').replace(/"/g, '""')}"`).join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'journal-yap-signups.csv';
+            a.click();
+        }
+    });
+</script>
+
+</body>
+</html>
