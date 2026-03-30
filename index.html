@@ -876,6 +876,9 @@
         <div class="bring-note">
             <strong>What to bring:</strong> Your own journal &amp; fresh vibes &#10024;
         </div>
+        <div class="bring-note" style="margin-top: 10px; border-left-color: var(--rust); background: linear-gradient(135deg, rgba(193, 120, 82, 0.1), rgba(212, 168, 67, 0.08));">
+            <strong>&#127881; Bring a friend &amp; get 10% off!</strong> Rs. 2,500 per person &#8212; or Rs. 4,500 for two (save Rs. 500)
+        </div>
     </div>
 
     <!-- Form -->
@@ -929,15 +932,25 @@
             </div>
 
             <div class="form-group">
-                <label>Have you attended any of our previous events?</label>
+                <label>How many spots are you booking? <span class="required">*</span></label>
+                <select name="spots" id="spotsSelect" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Just me — Rs. 2,500</option>
+                    <option value="2">Bringing a friend! — Rs. 4,500 (save Rs. 500)</option>
+                </select>
+                <div class="error-msg">Please select an option</div>
+            </div>
+
+            <div class="form-group">
+                <label>Would you like to be notified about future workshops?</label>
                 <div class="radio-group">
                     <label class="radio-option">
-                        <input type="radio" name="returning" value="yes">
-                        <span>Yes, I'm a returning guest!</span>
+                        <input type="radio" name="notify_future" value="yes">
+                        <span>Yes, keep me in the loop!</span>
                     </label>
                     <label class="radio-option">
-                        <input type="radio" name="returning" value="no">
-                        <span>No, this is my first time</span>
+                        <input type="radio" name="notify_future" value="no">
+                        <span>No, thanks</span>
                     </label>
                 </div>
             </div>
@@ -975,7 +988,10 @@
         <h2>You're Almost In!</h2>
         <p>We've received your details. Complete your payment below to <strong>confirm your spot</strong> for Journal & Yap on April 4th.</p>
 
-        <div class="payment-section" style="text-align: left; margin: 16px 0 20px; border: none; padding: 0;">
+        <div id="pricingBox" style="text-align: center; margin: 12px 0 16px; padding: 16px; background: linear-gradient(135deg, rgba(46, 125, 50, 0.08), rgba(46, 125, 50, 0.04)); border-radius: 12px; border: 1.5px solid rgba(46, 125, 50, 0.2);">
+        </div>
+
+        <div class="payment-section" style="text-align: left; margin: 0 0 20px; border: none; padding: 0;">
             <div class="payment-methods">
                 <!-- Standard Chartered -->
                 <div class="payment-card">
@@ -1110,6 +1126,15 @@
             const json = await res.json();
 
             if (json.success) {
+                // Set pricing based on spots selected
+                const spots = data.get('spots');
+                const pricingBox = document.getElementById('pricingBox');
+                if (spots === '2') {
+                    pricingBox.innerHTML = '<div style="font-size:12px;color:#2E7D32;font-weight:600;margin-bottom:4px;">&#127881; Bring a Friend Discount Applied!</div><div style="font-size:22px;font-weight:700;color:#2E7D32;">Rs. 4,500 <span style="font-size:13px;color:#999;text-decoration:line-through;font-weight:400;">Rs. 5,000</span></div><div style="font-size:12px;color:var(--dark-brown);margin-top:2px;">For 2 persons — you save Rs. 500</div>';
+                } else {
+                    pricingBox.innerHTML = '<div style="font-size:12px;color:var(--dark-brown);font-weight:500;margin-bottom:4px;">&#127915; 1 Spot</div><div style="font-size:22px;font-weight:700;color:#2E7D32;">Rs. 2,500</div>';
+                }
+
                 submitBtn.innerHTML = 'Book My Spot';
                 submitBtn.disabled = false;
                 form.reset();
