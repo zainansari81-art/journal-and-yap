@@ -555,6 +555,140 @@
             display: block;
         }
 
+        /* Payment Section */
+        .payment-section {
+            background: var(--warm-white);
+            border: 1px solid rgba(193, 120, 82, 0.15);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--soft-gold), var(--rust), var(--soft-gold));
+        }
+
+        .payment-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-brown);
+            margin-bottom: 6px;
+        }
+
+        .payment-subtitle {
+            font-size: 13px;
+            color: #8a7a6a;
+            margin-bottom: 18px;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .payment-card {
+            padding: 16px;
+            background: var(--paper);
+            border-radius: 12px;
+            border: 1px solid rgba(193, 120, 82, 0.1);
+        }
+
+        .payment-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .payment-card-header svg {
+            width: 18px;
+            height: 18px;
+            color: var(--rust);
+        }
+
+        .payment-card-header span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-brown);
+            letter-spacing: 0.3px;
+        }
+
+        .payment-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+        }
+
+        .payment-detail-label {
+            font-size: 12px;
+            color: #8a7a6a;
+        }
+
+        .payment-detail-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-brown);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+            user-select: all;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 10px;
+            padding: 6px 12px;
+            background: var(--cream);
+            border: 1px solid #e0d5c8;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--rust);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(193, 120, 82, 0.08);
+            border-color: var(--rust);
+        }
+
+        .copy-btn.copied {
+            background: var(--sage);
+            color: white;
+            border-color: var(--sage);
+        }
+
+        .copy-btn svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        .payment-note {
+            margin-top: 16px;
+            padding: 12px 14px;
+            background: linear-gradient(135deg, rgba(212, 168, 67, 0.1), rgba(193, 120, 82, 0.08));
+            border-radius: 10px;
+            border-left: 3px solid var(--soft-gold);
+            font-size: 12px;
+            color: #5a4e40;
+            line-height: 1.6;
+        }
+
+        .payment-note strong {
+            color: var(--dark-brown);
+        }
+
         /* Loading spinner */
         .spinner {
             display: inline-block;
@@ -650,6 +784,58 @@
         </div>
     </div>
 
+    <!-- Payment -->
+    <div class="payment-section">
+        <h3 class="payment-title">Payment Details</h3>
+        <p class="payment-subtitle">Pay via bank transfer or SadaPay to confirm your booking</p>
+
+        <div class="payment-methods">
+            <!-- Standard Chartered -->
+            <div class="payment-card">
+                <div class="payment-card-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    <span>Standard Chartered Bank</span>
+                </div>
+                <div class="payment-detail">
+                    <span class="payment-detail-label">Account Title</span>
+                    <span class="payment-detail-value">Shehza Shakeel Siddiqui</span>
+                </div>
+                <div class="payment-detail">
+                    <span class="payment-detail-label">IBAN</span>
+                    <span class="payment-detail-value" id="iban">PK02SCBL0000001032924401</span>
+                </div>
+                <button class="copy-btn" onclick="copyText('PK02SCBL0000001032924401', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    Copy IBAN
+                </button>
+            </div>
+
+            <!-- SadaPay -->
+            <div class="payment-card">
+                <div class="payment-card-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    <span>SadaPay</span>
+                </div>
+                <div class="payment-detail">
+                    <span class="payment-detail-label">Account Title</span>
+                    <span class="payment-detail-value">Shehza Shakeel</span>
+                </div>
+                <div class="payment-detail">
+                    <span class="payment-detail-label">Number</span>
+                    <span class="payment-detail-value" id="sadapay">0332 2369439</span>
+                </div>
+                <button class="copy-btn" onclick="copyText('03322369439', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    Copy Number
+                </button>
+            </div>
+        </div>
+
+        <div class="payment-note">
+            <strong>Important:</strong> After payment, please attach your payment screenshot in the form below to confirm your spot.
+        </div>
+    </div>
+
     <!-- Form -->
     <div class="form-section">
         <div class="form-header">
@@ -657,7 +843,12 @@
             <p>Fill in the details below and we'll save a seat for you!</p>
         </div>
 
-        <form id="signupForm" novalidate>
+        <form id="signupForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY">
+            <input type="hidden" name="subject" value="New Sign-up: Journal & Yap — April 4, 2026">
+            <input type="hidden" name="from_name" value="Journal & Yap Sign-up Form">
+            <input type="hidden" name="redirect" value="">
+            <input type="checkbox" name="botcheck" style="display:none">
             <div class="form-group">
                 <label>Full Name <span class="required">*</span></label>
                 <input type="text" name="name" placeholder="e.g. Ayesha Khan" required>
@@ -710,6 +901,12 @@
             </div>
 
             <div class="form-group">
+                <label>Payment Screenshot <span class="required">*</span></label>
+                <input type="file" name="screenshot" accept="image/*" required style="padding: 10px; font-size: 13px;">
+                <div class="error-msg">Please upload your payment screenshot</div>
+            </div>
+
+            <div class="form-group">
                 <label>Anything you'd like us to know?</label>
                 <textarea name="notes" placeholder="Questions, dietary needs, or just say hi..."></textarea>
             </div>
@@ -746,8 +943,18 @@
 </div>
 
 <script>
-    // Google Apps Script Web App URL — replace with your deployed URL
-    const GOOGLE_SCRIPT_URL = '';
+    // Copy to clipboard
+    function copyText(text, btn) {
+        navigator.clipboard.writeText(text).then(() => {
+            const original = btn.innerHTML;
+            btn.classList.add('copied');
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+            setTimeout(() => {
+                btn.innerHTML = original;
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+    }
 
     const form = document.getElementById('signupForm');
     const submitBtn = document.getElementById('submitBtn');
@@ -809,34 +1016,30 @@
         submitBtn.innerHTML = '<span class="spinner"></span> Booking...';
 
         const data = new FormData(form);
-        const payload = Object.fromEntries(data.entries());
-        payload.timestamp = new Date().toISOString();
-        payload.event = 'Journal & Yap — April 4, 2026';
 
-        if (GOOGLE_SCRIPT_URL) {
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-            } catch (err) {
-                console.log('Submission note:', err);
+        try {
+            const res = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: data
+            });
+            const json = await res.json();
+
+            if (json.success) {
+                submitBtn.innerHTML = 'Book My Spot';
+                submitBtn.disabled = false;
+                form.reset();
+                document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+                document.getElementById('successOverlay').classList.add('show');
+            } else {
+                submitBtn.innerHTML = 'Book My Spot';
+                submitBtn.disabled = false;
+                alert('Something went wrong. Please try again or DM us on Instagram.');
             }
+        } catch (err) {
+            submitBtn.innerHTML = 'Book My Spot';
+            submitBtn.disabled = false;
+            alert('Network error. Please check your connection and try again.');
         }
-
-        // Save to localStorage as backup
-        const submissions = JSON.parse(localStorage.getItem('journalYapSignups') || '[]');
-        submissions.push(payload);
-        localStorage.setItem('journalYapSignups', JSON.stringify(submissions));
-
-        submitBtn.innerHTML = 'Book My Spot';
-        submitBtn.disabled = false;
-        form.reset();
-        document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
-
-        document.getElementById('successOverlay').classList.add('show');
     });
 
     function closeSuccess() {
