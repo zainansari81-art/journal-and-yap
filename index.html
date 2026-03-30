@@ -706,16 +706,42 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Responsive */
-        @media (max-width: 480px) {
+        /* Responsive — Tablet */
+        @media (max-width: 768px) {
             .page-wrapper {
-                padding: 12px 12px 32px;
+                max-width: 100%;
+                padding: 16px 16px 36px;
             }
             .event-title {
-                font-size: 46px;
+                font-size: 52px;
+            }
+            .success-card {
+                margin: 0 16px;
+            }
+        }
+
+        /* Responsive — Small phones */
+        @media (max-width: 480px) {
+            .page-wrapper {
+                padding: 10px 10px 28px;
+            }
+            .hero {
+                padding: 28px 12px 24px;
+            }
+            .event-title {
+                font-size: 42px;
+            }
+            .event-subtitle {
+                font-size: 14px;
+            }
+            .event-meta {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
             }
             .form-section {
-                padding: 22px 18px 28px;
+                padding: 20px 16px 26px;
+                border-radius: 16px;
             }
             .form-row {
                 grid-template-columns: 1fr;
@@ -723,8 +749,73 @@
             .activities-grid {
                 grid-template-columns: 1fr;
             }
-            .event-meta {
-                gap: 12px;
+            .details-card {
+                padding: 18px;
+            }
+            .payment-section {
+                padding: 18px;
+            }
+            .payment-detail {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+            .payment-detail-value {
+                font-size: 12px;
+                word-break: break-all;
+            }
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+            .success-card {
+                padding: 32px 20px;
+                margin: 0 10px;
+            }
+            .success-emoji {
+                font-size: 44px;
+            }
+            .success-card h2 {
+                font-size: 20px;
+            }
+        }
+
+        /* Responsive — Very small phones (SE, mini) */
+        @media (max-width: 360px) {
+            .event-title {
+                font-size: 36px;
+            }
+            .studio-badge {
+                font-size: 10px;
+                padding: 5px 12px;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+            .submit-btn {
+                padding: 13px 20px;
+                font-size: 14px;
+            }
+            .details-title,
+            .payment-title {
+                font-size: 16px;
+            }
+            .form-header h2 {
+                font-size: 19px;
+            }
+        }
+
+        /* Desktop / Large screens */
+        @media (min-width: 769px) {
+            .page-wrapper {
+                padding: 32px 20px 48px;
+            }
+            .hero {
+                padding: 48px 24px 36px;
             }
         }
     </style>
@@ -781,58 +872,6 @@
         </div>
         <div class="bring-note">
             <strong>What to bring:</strong> Your own journal &amp; fresh vibes &#10024;
-        </div>
-    </div>
-
-    <!-- Payment -->
-    <div class="payment-section">
-        <h3 class="payment-title">Payment Details</h3>
-        <p class="payment-subtitle">Pay via bank transfer or SadaPay to confirm your booking</p>
-
-        <div class="payment-methods">
-            <!-- Standard Chartered -->
-            <div class="payment-card">
-                <div class="payment-card-header">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                    <span>Standard Chartered Bank</span>
-                </div>
-                <div class="payment-detail">
-                    <span class="payment-detail-label">Account Title</span>
-                    <span class="payment-detail-value">Shehza Shakeel Siddiqui</span>
-                </div>
-                <div class="payment-detail">
-                    <span class="payment-detail-label">IBAN</span>
-                    <span class="payment-detail-value" id="iban">PK02SCBL0000001032924401</span>
-                </div>
-                <button class="copy-btn" onclick="copyText('PK02SCBL0000001032924401', this)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                    Copy IBAN
-                </button>
-            </div>
-
-            <!-- SadaPay -->
-            <div class="payment-card">
-                <div class="payment-card-header">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                    <span>SadaPay</span>
-                </div>
-                <div class="payment-detail">
-                    <span class="payment-detail-label">Account Title</span>
-                    <span class="payment-detail-value">Shehza Shakeel</span>
-                </div>
-                <div class="payment-detail">
-                    <span class="payment-detail-label">Number</span>
-                    <span class="payment-detail-value" id="sadapay">0332 2369439</span>
-                </div>
-                <button class="copy-btn" onclick="copyText('03322369439', this)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                    Copy Number
-                </button>
-            </div>
-        </div>
-
-        <div class="payment-note">
-            <strong>Important:</strong> After payment, please attach your payment screenshot in the form below to confirm your spot.
         </div>
     </div>
 
@@ -901,12 +940,6 @@
             </div>
 
             <div class="form-group">
-                <label>Payment Screenshot <span class="required">*</span></label>
-                <input type="file" name="screenshot" accept="image/*" required style="padding: 10px; font-size: 13px;">
-                <div class="error-msg">Please upload your payment screenshot</div>
-            </div>
-
-            <div class="form-group">
                 <label>Anything you'd like us to know?</label>
                 <textarea name="notes" placeholder="Questions, dietary needs, or just say hi..."></textarea>
             </div>
@@ -932,13 +965,62 @@
     </div>
 </div>
 
-<!-- Success Modal -->
+<!-- Success + Payment Modal -->
 <div class="success-overlay" id="successOverlay">
-    <div class="success-card">
+    <div class="success-card" style="max-width: 440px; max-height: 90vh; overflow-y: auto;">
         <div class="success-emoji">&#128150;&#10024;</div>
-        <h2>You're In!</h2>
-        <p>We've saved your spot for <strong>Journal & Yap</strong> on April 4th. We'll reach out on WhatsApp with all the details. Bring your journal and good vibes!</p>
-        <button class="close-btn" onclick="closeSuccess()">Got it!</button>
+        <h2>You're Almost In!</h2>
+        <p>We've received your details. Complete your payment below to <strong>confirm your spot</strong> for Journal & Yap on April 4th.</p>
+
+        <div class="payment-section" style="text-align: left; margin: 16px 0 20px; border: none; padding: 0;">
+            <div class="payment-methods">
+                <!-- Standard Chartered -->
+                <div class="payment-card">
+                    <div class="payment-card-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:var(--rust)"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                        <span style="font-size:13px;font-weight:600;color:var(--dark-brown)">Standard Chartered Bank</span>
+                    </div>
+                    <div class="payment-detail">
+                        <span class="payment-detail-label">Account Title</span>
+                        <span class="payment-detail-value">Shehza Shakeel Siddiqui</span>
+                    </div>
+                    <div class="payment-detail">
+                        <span class="payment-detail-label">IBAN</span>
+                        <span class="payment-detail-value" id="iban">PK02SCBL0000001032924401</span>
+                    </div>
+                    <button class="copy-btn" onclick="copyText('PK02SCBL0000001032924401', this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy IBAN
+                    </button>
+                </div>
+
+                <!-- SadaPay -->
+                <div class="payment-card">
+                    <div class="payment-card-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:var(--rust)"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                        <span style="font-size:13px;font-weight:600;color:var(--dark-brown)">SadaPay</span>
+                    </div>
+                    <div class="payment-detail">
+                        <span class="payment-detail-label">Account Title</span>
+                        <span class="payment-detail-value">Shehza Shakeel</span>
+                    </div>
+                    <div class="payment-detail">
+                        <span class="payment-detail-label">Number</span>
+                        <span class="payment-detail-value" id="sadapay">0332 2369439</span>
+                    </div>
+                    <button class="copy-btn" onclick="copyText('03322369439', this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy Number
+                    </button>
+                </div>
+            </div>
+
+            <div class="payment-note" style="margin-top: 14px;">
+                <strong>After payment:</strong> Send your screenshot to <a href="https://instagram.com/shetoonss" target="_blank" style="color: var(--rust); font-weight: 600;">@shetoonss</a> on Instagram or WhatsApp to confirm your spot.
+            </div>
+        </div>
+
+        <button class="close-btn" onclick="closeSuccess()">Done!</button>
     </div>
 </div>
 
