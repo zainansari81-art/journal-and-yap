@@ -514,26 +514,29 @@
 
         .success-card p {
             font-size: 14px;
-            color: #7a6a5a;
+            color: #4a3f35;
             line-height: 1.6;
             margin-bottom: 20px;
         }
 
         .success-card .close-btn {
-            padding: 12px 32px;
-            background: var(--sage);
+            padding: 14px 40px;
+            background: #2E7D32;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-family: 'Inter', sans-serif;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px rgba(46, 125, 50, 0.3);
         }
 
         .success-card .close-btn:hover {
-            background: #8fa487;
+            background: #1B5E20;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(46, 125, 50, 0.4);
         }
 
         /* Error state */
@@ -647,26 +650,26 @@
             align-items: center;
             gap: 4px;
             margin-top: 10px;
-            padding: 6px 12px;
-            background: var(--cream);
-            border: 1px solid #e0d5c8;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--rust);
+            padding: 7px 14px;
+            background: rgba(46, 125, 50, 0.08);
+            border: 1.5px solid #2E7D32;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #2E7D32;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .copy-btn:hover {
-            background: rgba(193, 120, 82, 0.08);
-            border-color: var(--rust);
+            background: #2E7D32;
+            color: white;
         }
 
         .copy-btn.copied {
-            background: var(--sage);
+            background: #2E7D32;
             color: white;
-            border-color: var(--sage);
+            border-color: #2E7D32;
         }
 
         .copy-btn svg {
